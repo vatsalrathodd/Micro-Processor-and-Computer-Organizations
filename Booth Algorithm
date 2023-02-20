@@ -1,0 +1,62 @@
+def binaryAddition(p:str,q:str)->str: c=0
+sum=""
+
+for i in range(3,-1,-1): if(p[i]=='1' and q[i]=='1'):
+if(c==1): sum="1"+sum
+elif(c==0): sum="0"+sum
+c=1
+
+elif((p[i]=='1' and q[i]=='0') or (p[i]=='0' and q[i]=='1')): if(c==1):
+sum="0"+sum c=1
+elif(c==0): sum="1"+sum c=0
+elif(p[i]=='0' and q[i]=='0'): if(c==1):
+sum="1"+sum c=0
+elif(c==0): sum="0"+sum
+return sum
+
+
+def binarySubtraction(p:str,q:str)->str:
+ 
+z=""
+flag=0
+for i in range(3,-1,-1): if(flag==0):
+if(q[i]=='1'): z="1"+z
+
+flag=1 else:
+z="0"+z
+else:
+if(q[i]=='1'): z="0"+z
+
+else:
+z="1"+z
+
+sum=binaryAddition(p,z) return sum
+
+def rightShift(p:str)->str: p=p[:len(p)-1]
+p=p[len(p)-1]+p return p
+
+def boothAlgorithm(m:str,q:str)->str: a="0000"
+q1="0"
+
+print("Value Of M : ",m) print("Value of Q : ",q,"\n")
+
+print("	A	Q	Q-1	Operation") for i in range(4):
+print(i+1,". ",a," ",q," ",q1) if(q[3]==q1):
+st=rightShift(a+q+q1) a=st[0:4]
+q=st[4:8] q1=st[8]
+ 
+print("	",a," ",q," ",q1,end=" ") print(" RightShift")
+elif(q[3]=='1' and q1=='0'): a=binarySubtraction(a,m)
+print("	",a," ",q," ",q1,end="") print("	Subtraction A-M") st=rightShift(a+q+q1)
+a=st[0:4]
+q=st[4:8] q1=st[8]
+print("	",a," ",q," ",q1,end="") print("	RightShift")
+elif(q[3]=='0' and q1=='1'): a=binaryAddition(a,m)
+print("	",a," ",q," ",q1,end="") print("	Addition A+M") st=rightShift(a+q+q1)
+a=st[0:4]
+q=st[4:8] q1=st[8]
+print("	",a," ",q," ",q1,end="") print("	RightShift")
+
+return a+q+q1
+
+print("\nMultiplication : ",boothAlgorithm("0111","0011"))
